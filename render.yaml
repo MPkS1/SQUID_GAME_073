@@ -1,10 +1,10 @@
 services:
   - type: web
     name: squid-game-frontend
-    env: node
+    runtime: node
     buildCommand: npm install && npm run build
     startCommand: npx serve -s dist -l 3000
-    rootDir: frontend
+    rootDir: frontend/
     envVars:
       - key: VITE_API_URL
         value: https://squid-game-backend.onrender.com
@@ -13,11 +13,10 @@ services:
 
   - type: web
     name: squid-game-backend
-    env: python
-    pythonVersion: 3.11
+    runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:10000
-    rootDir: backend
+    rootDir: backend/
     envVars:
       - key: GOOGLE_API_KEY
         value: AIzaSyDDerE8nSj8l4sLgntAkNHJi4pbulsraiI
