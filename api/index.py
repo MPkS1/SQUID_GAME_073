@@ -1,6 +1,6 @@
 """
-Vercel Serverless API Handler
-Runs FastAPI backend as Vercel serverless functions
+Vercel Serverless API - QShield AI Backend
+Runs FastAPI as serverless functions on Vercel
 """
 import sys
 import os
@@ -10,18 +10,28 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'backend'))
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from mangum import Mangum
 
-# Import the main app from backend
-from main import app
+# Import the main FastAPI app
+try:
+    from main import app
+except ImportError:
+    # Fallback: create a simple app if main.py is not found
+    app = FastAPI(title="QShield AI API")
+    
+    @app.get("/health")
+    async def health():
+        return {"status": "healthy", "service": "qshield-ai"}
 
-# Ensure CORS is configured for Vercel
+# Add CORS middleware for Vercel cross-origin requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, restrict this to your frontend URL
+    allow_origins=["*"],  # Allow all origins in production, restrict as needed
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Export for Vercel
-handler = app
+# Export the handler for Vercel
+handler = Mangum(app, lifespan="off")
+

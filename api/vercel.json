@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "buildCommand": "pip install -r requirements.txt",
+  "functions": {
+    "api/**/*.py": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  },
+  "env": {
+    "GOOGLE_API_KEY": "@google_api_key",
+    "GOOGLE_SAFE_BROWSING_API_KEY": "@safe_browsing_key",
+    "DEBUG": "false",
+    "DEMO_MODE": "false"
+  }
+}
