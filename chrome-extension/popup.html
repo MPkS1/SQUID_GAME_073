@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QShield AI - Phishing Detector</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ QShield AI</h1>
+            <p>Advanced Phishing Detection</p>
+        </div>
+
+        <div class="status" id="status">
+            <p>Analyzing this page...</p>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <div class="result-item">
+                <h3>🔍 Page Analysis</h3>
+                <p id="pageRiskScore"></p>
+                <p id="linksAnalyzed"></p>
+                <p id="threatsFound"></p>
+            </div>
+
+            <div class="result-item">
+                <h3>📊 Link Details</h3>
+                <div id="linksList" style="max-height: 200px; overflow-y: auto;"></div>
+            </div>
+
+            <div class="result-item">
+                <h3>⚠️ Warnings</h3>
+                <div id="warningsList"></div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="analyzeBtn" class="btn btn-primary">🔍 Analyze Page</button>
+            <button id="reportBtn" class="btn btn-secondary" style="display: none;">📄 Full Report</button>
+            <button id="settingsBtn" class="btn btn-tertiary">⚙️ Settings</button>
+        </div>
+
+        <div class="footer">
+            <p>Server: <span id="serverStatus">Connecting...</span></p>
+            <p>Gmail Integration: <span id="gmailStatus">Inactive</span></p>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

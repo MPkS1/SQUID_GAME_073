@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "QShield AI - Phishing Detector",
+  "version": "1.0.0",
+  "description": "Advanced phishing detection for websites and Gmail. Real-time link analysis powered by AI.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs",
+    "webRequest",
+    "notifications",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://localhost:8000/*",
+    "http://localhost:5174/*",
+    "https://mail.google.com/*",
+    "https://*.google.com/*",
+    "*://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["gmail-integration.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "QShield AI - Click to analyze this page"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["inject.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon-16.svg",
+    "48": "icons/icon-48.svg",
+    "128": "icons/icon-128.svg"
+  },
+  "options_page": "options.html"
+}
